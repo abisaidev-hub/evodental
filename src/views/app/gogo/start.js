@@ -15,7 +15,7 @@ const Start = ({ match }) => (
     <Row>
       <Colxx xxs="12" className="mb-4">
         <p>
-          <IntlMessages id="menu.start" />
+          <IntlMessages id="menu.start" /> Algo
         </p>
       </Colxx>
     </Row>
