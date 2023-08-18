@@ -27,7 +27,7 @@ module.exports = {
   'user.username': 'Username',
 
   /* 03.Menu */
-  'menu.home': 'Home',
+  'menu.home': 'Evodental',
   'menu.app': 'Home',
   'menu.dashboards': 'Dashboards',
   'menu.gogo': 'Gogo',
@@ -42,6 +42,18 @@ module.exports = {
   'menu.search': 'Search',
   'menu.docs': 'Docs',
   'menu.blank-page': 'Blank Page',
+  'menu.dashboard': 'Dashboard',
+  'menu.inicio': 'Inicio',
+  'menu.lorem': 'Lorem',
+  'menu.ipsum': 'Ipsum',
+  'menu.soporte': 'Support',
+  'menu.centro-de-ayuda': 'Help center',
+  'menu.crear-caso': 'Crear nuevo caso',
+  'menu.crear-paciente': 'Crear nuevo paciente',
+  'menu.crear-ortodoncista': 'Crear nuevo ortodoncista',
+  'menu.casos': 'Casos',
+  'menu.pacientes': 'Pacientes',
+  'menu.ortodoncistas': 'Ortodoncistas',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
