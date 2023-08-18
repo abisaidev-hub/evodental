@@ -27,7 +27,7 @@ module.exports = {
   'user.username': 'Nombre de Usuario',
 
   /* 03.Menú */
-  'menu.home': 'Inicio',
+  'menu.home': 'Evodental',
   'menu.app': 'Inicio',
   'menu.dashboards': 'Tableros',
   'menu.gogo': 'Gogo',
@@ -42,6 +42,19 @@ module.exports = {
   'menu.search': 'Búsqueda',
   'menu.docs': 'Docs',
   'menu.blank-page': 'Blank Page',
+  'menu.dashboard': 'Dashboard',
+  'menu.inicio': 'Inicio',
+  'menu.lorem': 'Lorem',
+  'menu.ipsum': 'Ipsum',
+  'menu.soporte': 'Soporte',
+  'menu.centro-de-ayuda': 'Centro de ayuda',
+  'menu.crear-caso': 'Nuevo caso',
+  'menu.crear-paciente': 'Nuevo paciente',
+  'menu.crear-ortodoncista': 'Nuevo ortodoncista',
+  'menu.casos': 'Casos',
+  'menu.pacientes': 'Pacientes',
+  'menu.ortodoncistas': 'Ortodoncistas',
+
   /* 04.Error  */
   'layouts.error-title': 'Vaya, parece que ha ocurrido un error!',
   'layouts.error-code': 'Código de error',

@@ -4,14 +4,11 @@ import { connect } from 'react-redux';
 
 import AppLayout from 'layout/AppLayout';
 
-const Gogo = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-gogo" */ './gogo')
+const Dashboard = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-gogo" */ './dashboard')
 );
-const SecondMenu = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-second-menu" */ './second-menu')
-);
-const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
+const Soporte = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-second-menu" */ './soporte')
 );
 
 const App = ({ match }) => {
@@ -20,18 +17,18 @@ const App = ({ match }) => {
       <div className="dashboard-wrapper">
         <Suspense fallback={<div className="loading" />}>
           <Switch>
-            <Redirect exact from={`${match.url}/`} to={`${match.url}/gogo`} />
-            <Route
-              path={`${match.url}/gogo`}
-              render={(props) => <Gogo {...props} />}
+            <Redirect
+              exact
+              from={`${match.url}/`}
+              to={`${match.url}/dashboard`}
             />
             <Route
-              path={`${match.url}/second-menu`}
-              render={(props) => <SecondMenu {...props} />}
+              path={`${match.url}/dashboard`}
+              render={(props) => <Dashboard {...props} />}
             />
             <Route
-              path={`${match.url}/blank-page`}
-              render={(props) => <BlankPage {...props} />}
+              path={`${match.url}/soporte`}
+              render={(props) => <Soporte {...props} />}
             />
             <Redirect to="/error" />
           </Switch>

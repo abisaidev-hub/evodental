@@ -3,37 +3,71 @@ import { adminRoot } from './defaultValues';
 
 const data = [
   {
-    id: 'gogo',
-    icon: 'iconsminds-air-balloon-1',
-    label: 'menu.gogo',
-    to: `${adminRoot}/gogo`,
+    id: 'dashboard',
+    icon: 'iconsminds-digital-drawing',
+    label: 'menu.dashboard',
+    to: `${adminRoot}/dashboard`,
     // roles: [UserRole.Admin, UserRole.Editor],
     subs: [
       {
-        icon: 'simple-icon-paper-plane',
-        label: 'menu.start',
-        to: `${adminRoot}/gogo/start`,
+        icon: 'iconsminds-home',
+        label: 'menu.inicio',
+        to: `${adminRoot}/dashboard/inicio`,
       },
-    ],
-  },
-  {
-    id: 'secondmenu',
-    icon: 'iconsminds-three-arrow-fork',
-    label: 'menu.second-menu',
-    to: `${adminRoot}/second-menu`,
-    subs: [
+      {
+        icon: 'iconsminds-newspaper',
+        label: 'menu.crear-caso',
+        to: `${adminRoot}/dashboard/crear-caso`,
+      },
+      {
+        icon: 'iconsminds-male',
+        label: 'menu.crear-paciente',
+        to: `${adminRoot}/dashboard/crear-paciente`,
+      },
+      {
+        icon: 'iconsminds-doctor',
+        label: 'menu.crear-ortodoncista',
+        to: `${adminRoot}/dashboard/crear-ortodoncista`,
+      },
+      {
+        icon: 'iconsminds-newspaper',
+        label: 'menu.casos',
+        to: `${adminRoot}/dashboard/casos`,
+      },
+      {
+        icon: 'iconsminds-male',
+        label: 'menu.pacientes',
+        to: `${adminRoot}/dashboard/pacientes`,
+      },
+      {
+        icon: 'iconsminds-doctor',
+        label: 'menu.ortodoncistas',
+        to: `${adminRoot}/dashboard/ortodoncistas`,
+      },
       {
         icon: 'simple-icon-paper-plane',
-        label: 'menu.second',
-        to: `${adminRoot}/second-menu/second`,
+        label: 'menu.lorem',
+        to: `${adminRoot}/dashboard/lorem`,
+      },
+      {
+        icon: 'simple-icon-paper-plane',
+        label: 'menu.ipsum',
+        to: `${adminRoot}/dashboard/ipsum`,
       },
     ],
   },
   {
-    id: 'blankpage',
-    icon: 'iconsminds-bucket',
-    label: 'menu.blank-page',
-    to: `${adminRoot}/blank-page`,
+    id: 'soporte',
+    icon: 'iconsminds-support',
+    label: 'menu.soporte',
+    to: `${adminRoot}/soporte`,
+    subs: [
+      {
+        icon: 'simple-icon-support',
+        label: 'menu.centro-de-ayuda',
+        to: `${adminRoot}/soporte/centro-de-ayuda`,
+      },
+    ],
   },
   {
     id: 'docs',
