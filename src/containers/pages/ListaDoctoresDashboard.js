@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Row } from 'reactstrap';
+import { Colxx } from 'components/common/CustomBootstrap';
 
 import axios from 'axios';
 
 import { servicePath } from 'constants/defaultValues';
 
-import EncabezadoLista from 'containers/pages/EncabezadoLista';
-import AddNewModal from 'containers/pages/AddNewModal';
+import EncabezadoListaDashboard from 'containers/pages/EncabezadoListaDashboard';
 import ListPageListing from 'containers/pages/ListPageListing';
 import useMousetrap from 'hooks/use-mousetrap';
 
@@ -22,24 +23,17 @@ const apiUrl = `${servicePath}/cakes/paging`;
 
 const orderOptions = [
   { column: 'title', label: 'Nombre' },
-  { column: 'category', label: 'Tipo de estudio' },
-  { column: 'status', label: 'Estado' },
-  { column: 'latest', label: 'Más recientes' },
+  { column: 'category', label: 'Especialidad' },
+  { column: 'address', label: 'Dirección' },
   { column: 'oldest', label: 'Más antiguos' },
 ];
 const pageSizes = [4, 8, 12, 20];
 
-const categories = [
-  { label: 'Cakes', value: 'Cakes', key: 0 },
-  { label: 'Cupcakes', value: 'Cupcakes', key: 1 },
-  { label: 'Desserts', value: 'Desserts', key: 2 },
-];
-
-const Pacientes = ({ match }) => {
+const ListaDoctoresDashboard = ({ match }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [displayMode, setDisplayMode] = useState('thumblist');
+  const [displayMode, setDisplayMode] = useState('list');
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedPageSize, setSelectedPageSize] = useState(8);
+  const [selectedPageSize, setSelectedPageSize] = useState(4);
   const [selectedOrderOption, setSelectedOrderOption] = useState({
     column: 'title',
     label: 'Nombre',
@@ -156,61 +150,64 @@ const Pacientes = ({ match }) => {
   const startIndex = (currentPage - 1) * selectedPageSize;
   const endIndex = currentPage * selectedPageSize;
 
-  return !isLoaded ? (
-    <div className="loading" />
-  ) : (
-    <>
-      <div className="disable-text-selection">
-        <EncabezadoLista
-          addButtonText="Crear nuevo paciente"
-          dropdownFirstOption="Deshabilitar paciente"
-          viewText="pacientes"
-          heading="menu.pacientes"
-          displayMode={displayMode}
-          changeDisplayMode={setDisplayMode}
-          handleChangeSelectAll={handleChangeSelectAll}
-          changeOrderBy={(column) => {
-            setSelectedOrderOption(
-              orderOptions.find((x) => x.column === column)
-            );
-          }}
-          changePageSize={setSelectedPageSize}
-          selectedPageSize={selectedPageSize}
-          totalItemCount={totalItemCount}
-          selectedOrderOption={selectedOrderOption}
-          match={match}
-          startIndex={startIndex}
-          endIndex={endIndex}
-          selectedItemsLength={selectedItems ? selectedItems.length : 0}
-          itemsLength={items ? items.length : 0}
-          onSearchKey={(e) => {
-            if (e.key === 'Enter') {
-              setSearch(e.target.value.toLowerCase());
-            }
-          }}
-          orderOptions={orderOptions}
-          pageSizes={pageSizes}
-          toggleModal={() => setModalOpen(!modalOpen)}
-        />
-        <AddNewModal
-          modalOpen={modalOpen}
-          toggleModal={() => setModalOpen(!modalOpen)}
-          categories={categories}
-        />
-        <ListPageListing
-          items={items}
-          displayMode={displayMode}
-          selectedItems={selectedItems}
-          onCheckItem={onCheckItem}
-          currentPage={currentPage}
-          totalPage={totalPage}
-          onContextMenuClick={onContextMenuClick}
-          onContextMenu={onContextMenu}
-          onChangePage={setCurrentPage}
-        />
-      </div>
-    </>
+  return (
+    <Row>
+      <Colxx xxs="12" className="mb-4">
+        <h2>Lista de doctores</h2>
+      </Colxx>
+      {!isLoaded ? (
+        <div className="loading" />
+      ) : (
+        <>
+          <div className="disable-text-selection">
+            <EncabezadoListaDashboard
+              addButtonText="Crear nuevo paciente"
+              dropdownFirstOption="Eliminar paciente"
+              viewText="pacientes"
+              heading="menu.pacientes"
+              displayMode={displayMode}
+              changeDisplayMode={setDisplayMode}
+              handleChangeSelectAll={handleChangeSelectAll}
+              changeOrderBy={(column) => {
+                setSelectedOrderOption(
+                  orderOptions.find((x) => x.column === column)
+                );
+              }}
+              changePageSize={setSelectedPageSize}
+              selectedPageSize={selectedPageSize}
+              totalItemCount={totalItemCount}
+              selectedOrderOption={selectedOrderOption}
+              match={match}
+              startIndex={startIndex}
+              endIndex={endIndex}
+              selectedItemsLength={selectedItems ? selectedItems.length : 0}
+              itemsLength={items ? items.length : 0}
+              onSearchKey={(e) => {
+                if (e.key === 'Enter') {
+                  setSearch(e.target.value.toLowerCase());
+                }
+              }}
+              orderOptions={orderOptions}
+              pageSizes={pageSizes}
+              toggleModal={() => setModalOpen(!modalOpen)}
+            />
+            <ListPageListing
+              items={items}
+              displayMode={displayMode}
+              selectedItems={selectedItems}
+              onCheckItem={onCheckItem}
+              currentPage={currentPage}
+              totalPage={totalPage}
+              onContextMenuClick={onContextMenuClick}
+              onContextMenu={onContextMenu}
+              onChangePage={setCurrentPage}
+              type="doctor"
+            />
+          </div>
+        </>
+      )}
+    </Row>
   );
 };
 
-export default Pacientes;
+export default ListaDoctoresDashboard;

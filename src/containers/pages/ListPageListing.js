@@ -1,5 +1,7 @@
 import React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Row } from 'reactstrap';
+import { adminRoot } from 'constants/defaultValues';
 import Pagination from './Pagination';
 import ContextMenuContainer from './ContextMenuContainer';
 import DataListView from './DataListView';
@@ -20,40 +22,70 @@ const ListPageListing = ({
   onContextMenuClick,
   onContextMenu,
   onChangePage,
+  type,
 }) => {
+  const location = useLocation();
+  const path = location.pathname;
+  const paths = path.split('/');
+  const pathFixed = paths[2];
   return (
     <Row>
       {items.map((product) => {
         if (displayMode === 'imagelist') {
           return (
-            <ImageListView
-              key={product.id}
-              product={product}
-              isSelect={selectedItems.includes(product.id)}
-              collect={collect}
-              onCheckItem={onCheckItem}
-            />
+            <NavLink
+              to={`${adminRoot}/${
+                pathFixed === 'medico' ? 'medico' : 'admin'
+              }/${type}`}
+              className="d-block position-relative"
+              style={{ width: '100%' }}
+            >
+              <ImageListView
+                key={product.id}
+                product={product}
+                isSelect={selectedItems.includes(product.id)}
+                collect={collect}
+                onCheckItem={onCheckItem}
+              />
+            </NavLink>
           );
         }
         if (displayMode === 'thumblist') {
           return (
-            <ThumbListView
-              key={product.id}
-              product={product}
-              isSelect={selectedItems.includes(product.id)}
-              collect={collect}
-              onCheckItem={onCheckItem}
-            />
+            <NavLink
+              to={`${adminRoot}/${
+                pathFixed === 'medico' ? 'medico' : 'admin'
+              }/${type}`}
+              className="d-block position-relative"
+              style={{ width: '100%' }}
+            >
+              <ThumbListView
+                key={product.id}
+                product={product}
+                isSelect={selectedItems.includes(product.id)}
+                collect={collect}
+                onCheckItem={onCheckItem}
+              />
+            </NavLink>
           );
         }
         return (
-          <DataListView
+          <NavLink
+            to={`${adminRoot}/${
+              pathFixed === 'medico' ? 'medico' : 'admin'
+            }/${type}`}
+            className="d-block position-relative"
+            style={{ width: '100%' }}
             key={product.id}
-            product={product}
-            isSelect={selectedItems.includes(product.id)}
-            onCheckItem={onCheckItem}
-            collect={collect}
-          />
+          >
+            <DataListView
+              key={product.id}
+              product={product}
+              isSelect={selectedItems.includes(product.id)}
+              onCheckItem={onCheckItem}
+              collect={collect}
+            />
+          </NavLink>
         );
       })}
       <Pagination

@@ -12,47 +12,32 @@ const data = [
       {
         icon: 'iconsminds-home',
         label: 'menu.inicio',
-        to: `${adminRoot}/admin/inicio`,
-      },
-      {
-        icon: 'iconsminds-newspaper',
-        label: 'menu.crear-caso',
-        to: `${adminRoot}/admin/crear-caso`,
+        to: `${adminRoot}/doctor/inicio`,
       },
       {
         icon: 'iconsminds-male',
         label: 'menu.crear-paciente',
-        to: `${adminRoot}/admin/crear-paciente`,
-      },
-      {
-        icon: 'iconsminds-doctor',
-        label: 'menu.crear-doctor',
-        to: `${adminRoot}/admin/crear-doctor`,
+        to: `${adminRoot}/doctor/crear-paciente`,
       },
       {
         icon: 'iconsminds-newspaper',
         label: 'menu.casos',
-        to: `${adminRoot}/admin/casos`,
+        to: `${adminRoot}/doctor/casos`,
       },
       {
         icon: 'iconsminds-male',
         label: 'menu.pacientes',
-        to: `${adminRoot}/admin/pacientes`,
-      },
-      {
-        icon: 'iconsminds-doctor',
-        label: 'menu.doctores',
-        to: `${adminRoot}/admin/doctores`,
+        to: `${adminRoot}/doctor/pacientes`,
       },
       {
         icon: 'simple-icon-paper-plane',
         label: 'menu.lorem',
-        to: `${adminRoot}/admin/lorem`,
+        to: `${adminRoot}/doctor/lorem`,
       },
       {
         icon: 'simple-icon-paper-plane',
         label: 'menu.ipsum',
-        to: `${adminRoot}/admin/ipsum`,
+        to: `${adminRoot}/doctor/ipsum`,
       },
     ],
   },
@@ -67,16 +52,6 @@ const data = [
         label: 'menu.centro-de-ayuda',
         to: `${adminRoot}/soporte/centro-de-ayuda`,
       },
-      {
-        icon: 'simple-icon-paper-plane',
-        label: 'menu.lorem',
-        to: `${adminRoot}/soporte/lorem`,
-      },
-      {
-        icon: 'simple-icon-paper-plane',
-        label: 'menu.ipsum',
-        to: `${adminRoot}/soporte/ipsum`,
-      },
     ],
   },
   {
@@ -85,6 +60,12 @@ const data = [
     label: 'menu.docs',
     to: 'https://gogo-react-docs.coloredstrategies.com/',
     newWindow: true,
+  },
+  {
+    id: 'login',
+    icon: 'simple-icon-login',
+    label: 'sample.login',
+    to: `/user/login`,
   },
 ];
 export default data;

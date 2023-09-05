@@ -14,7 +14,7 @@ const FormMedico = () => {
   const validateFirstName = (value) => {
     let error;
     if (!value) {
-      error = 'Nombre o nombres del ortodoncista';
+      error = 'Nombre o nombres del doctor';
     } else if (value.length < 2) {
       error = 'El nombre tiene que tener 2 o más letras';
     }
@@ -24,7 +24,7 @@ const FormMedico = () => {
   const validateFirstLastName = (value) => {
     let error;
     if (!value) {
-      error = 'Apellido materno del ortodoncista';
+      error = 'Apellido materno del doctor';
     } else if (value.length < 2) {
       error = 'El apellido materno tiene que tener 2 o más letras';
     }
@@ -34,7 +34,7 @@ const FormMedico = () => {
   const validateSecondLastName = (value) => {
     let error;
     if (!value) {
-      error = 'Apellido paterno del ortodoncista';
+      error = 'Apellido paterno del doctor';
     } else if (value.length < 2) {
       error = 'El apellido paterno tiene que tener 2 o más letras';
     }
@@ -44,7 +44,7 @@ const FormMedico = () => {
   /* const validateCity = (value) => {
     let error;
     if (!value) {
-      error = 'Ciudad del paciente';
+      error = 'Ciudad del doctor';
     } else if (!value) {
       error = 'Ciudad no válida';
     }
@@ -54,7 +54,7 @@ const FormMedico = () => {
   const validatePhone = (value) => {
     let error;
     if (!value) {
-      error = 'Número del ortodoncista, despues de +52';
+      error = 'Número del doctor, despues de +52';
     } else if (!/^[0-9]/i.test(value)) {
       error = 'Número inválido';
     }
@@ -64,7 +64,7 @@ const FormMedico = () => {
   const validateEmail = (value) => {
     let error;
     if (!value) {
-      error = 'Correo del ortodoncista';
+      error = 'Correo del doctor';
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
       error = 'Correo inválido';
     }
@@ -76,7 +76,7 @@ const FormMedico = () => {
       <Colxx xxs="12">
         <Card>
           <CardBody>
-            <h6 className="mb-4">Crear un nuevo ortodoncista</h6>
+            <h6 className="mb-4">Crear un nuevo doctor</h6>
             <Formik
               initialValues={{
                 name: '',
@@ -129,11 +129,21 @@ const FormMedico = () => {
                   </FormGroup>
 
                   <FormGroup>
-                    <Label>Dirección</Label>
+                    <Label>Especialidad</Label>
                     <ReactAutoSugegstExample />
-                    {errors.address && touched.address && (
+                    {errors.type && touched.type && (
                       <div className="invalid-feedback d-block">
-                        {errors.address}
+                        {errors.type}
+                      </div>
+                    )}
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label>Empresa</Label>
+                    <ReactAutoSugegstExample />
+                    {errors.company && touched.company && (
+                      <div className="invalid-feedback d-block">
+                        {errors.company}
                       </div>
                     )}
                   </FormGroup>
@@ -167,7 +177,7 @@ const FormMedico = () => {
                   </FormGroup>
 
                   <Button color="primary" type="submit">
-                    Crear ortodoncista
+                    Crear doctor
                   </Button>
                 </Form>
               )}

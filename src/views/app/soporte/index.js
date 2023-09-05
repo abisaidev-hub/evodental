@@ -4,6 +4,13 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 const CentroDeAyuda = React.lazy(() =>
   import(/* webpackChunkName: "second" */ './centroDeAyuda')
 );
+const Lorem = React.lazy(() =>
+  import(/* webpackChunkName: "second" */ './lorem')
+);
+const Ipsum = React.lazy(() =>
+  import(/* webpackChunkName: "second" */ './ipsum')
+);
+
 const Soporte = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
     <Switch>
@@ -15,6 +22,14 @@ const Soporte = ({ match }) => (
       <Route
         path={`${match.url}/centro-de-ayuda`}
         render={(props) => <CentroDeAyuda {...props} />}
+      />
+      <Route
+        path={`${match.url}/lorem`}
+        render={(props) => <Lorem {...props} />}
+      />
+      <Route
+        path={`${match.url}/ipsum`}
+        render={(props) => <Ipsum {...props} />}
       />
       <Redirect to="/error" />
     </Switch>

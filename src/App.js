@@ -19,7 +19,9 @@ const ViewHome = React.lazy(() =>
 const ViewApp = React.lazy(() =>
   import(/* webpackChunkName: "views-app" */ './views/app')
 );
-
+const ViewUser = React.lazy(() =>
+  import(/* webpackChunkName: "views-user" */ './views/user')
+);
 const ViewError = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/error')
 );
@@ -53,6 +55,10 @@ class App extends React.Component {
             <Suspense fallback={<div className="loading" />}>
               <Router>
                 <Switch>
+                  <Route
+                    path="/user"
+                    render={(props) => <ViewUser {...props} />}
+                  />
                   <Route
                     path={adminRoot}
                     render={(props) => <ViewApp {...props} />}
