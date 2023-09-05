@@ -12,7 +12,7 @@ import {
   Input,
 } from 'reactstrap';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import {
@@ -48,6 +48,11 @@ const TopNav = ({
 }) => {
   const [isInFullScreen, setIsInFullScreen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
+  const location = useLocation();
+  const path = location.pathname;
+  const paths = path.split('/');
+  const pathFixed = paths[2];
+  const navigate = useHistory();
 
   const search = () => {
     history.push(`${searchPath}?key=${searchKeyword}`);
@@ -173,7 +178,8 @@ const TopNav = ({
   };
 
   const handleLogout = () => {
-    console.log('logout');
+    navigate.push('/user/login');
+    window.location.reload();
   };
 
   const menuButtonClick = (e, _clickCount, _conClassnames) => {
@@ -287,9 +293,18 @@ const TopNav = ({
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
-              <span className="name mr-1">Técnico</span>
+              <span className="name mr-1">
+                {pathFixed === 'medico' ? 'Doctor' : 'Técnico'}
+              </span>
               <span>
-                <img alt="Profile" src="/assets/img/profiles/l-1.jpg" />
+                <img
+                  alt="Profile"
+                  src={
+                    pathFixed === 'medico'
+                      ? '/assets/img/profiles/l-8.jpg'
+                      : '/assets/img/profiles/l-1.jpg'
+                  }
+                />
               </span>
             </DropdownToggle>
             <DropdownMenu className="mt-3" right>

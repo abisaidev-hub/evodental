@@ -1,26 +1,27 @@
 import React from 'react';
 import { Row } from 'reactstrap';
+import IntlMessages from 'helpers/IntlMessages';
 import { Colxx, Separator } from 'components/common/CustomBootstrap';
 import Breadcrumb from 'containers/navs/Breadcrumb';
 
-import FormMedico from 'containers/form-validations/FormMedico';
-
-const CrearOrtodoncista = ({ match }) => {
+const Lorem = ({ match }) => {
   return (
     <>
       <Row>
         <Colxx xxs="12">
-          <Breadcrumb heading="menu.crear-ortodoncista" match={match} />
+          <Breadcrumb heading="menu.lorem" match={match} />
           <Separator className="mb-5" />
         </Colxx>
       </Row>
       <Row>
-        <Colxx xs="12" md="6" className="mb-3">
-          <FormMedico />
+        <Colxx xxs="12" className="mb-4">
+          <p>
+            <IntlMessages id="menu.lorem" />
+          </p>
         </Colxx>
       </Row>
     </>
   );
 };
 
-export default CrearOrtodoncista;
+export default Lorem;

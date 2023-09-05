@@ -4,8 +4,11 @@ import { connect } from 'react-redux';
 
 import AppLayout from 'layout/AppLayout';
 
-const Dashboard = React.lazy(() =>
-  import(/* webpackChunkName: "viwes-gogo" */ './dashboard')
+const Admin = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-gogo" */ './admin')
+);
+const Medico = React.lazy(() =>
+  import(/* webpackChunkName: "viwes-gogo" */ './medico')
 );
 const Soporte = React.lazy(() =>
   import(/* webpackChunkName: "viwes-second-menu" */ './soporte')
@@ -17,15 +20,15 @@ const App = ({ match }) => {
       <div className="dashboard-wrapper">
         <Suspense fallback={<div className="loading" />}>
           <Switch>
-            <Redirect
-              exact
-              from={`${match.url}/`}
-              to={`${match.url}/dashboard`}
-            />
+            <Redirect exact from={`${match.url}/`} to={`${match.url}/admin`} />
             <Route
-              path={`${match.url}/dashboard`}
-              render={(props) => <Dashboard {...props} />}
+              path={`${match.url}/admin`}
+              render={(props) => <Admin {...props} />}
             />
+              <Route
+    path={`${match.url}/medico`}
+    render={(props) => <Medico {...props} />}
+  />
             <Route
               path={`${match.url}/soporte`}
               render={(props) => <Soporte {...props} />}

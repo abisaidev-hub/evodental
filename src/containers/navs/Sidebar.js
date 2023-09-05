@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { Component } from 'react';
+import React, { Component /* , useState */ } from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { Nav, NavItem, Collapse } from 'reactstrap';
@@ -17,6 +17,19 @@ import {
 } from 'redux/actions';
 
 import menuItems from 'constants/menu';
+/* import menuItemsAdmin from 'constants/menu';
+import menuItemsDoctor from 'constants/menuDoctor';
+
+const [menuItems, setMenuItems] = useState([]);
+const path = location.pathname;
+const paths = path.split('/');
+const pathFixed = paths[2];
+
+if (pathFixed === 'medico') {
+  setMenuItems(menuItemsDoctor)
+} else {
+  setMenuItems(menuItemsAdmin)
+} */
 
 class Sidebar extends Component {
   constructor(props) {

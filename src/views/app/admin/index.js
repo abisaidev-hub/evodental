@@ -10,8 +10,8 @@ const CrearCaso = React.lazy(() =>
 const CrearPaciente = React.lazy(() =>
   import(/* webpackChunkName: "start" */ './crearPaciente')
 );
-const CrearOrtodoncista = React.lazy(() =>
-  import(/* webpackChunkName: "start" */ './crearOrtodoncista')
+const CrearDoctor = React.lazy(() =>
+  import(/* webpackChunkName: "start" */ './crearDoctor')
 );
 const Casos = React.lazy(() =>
   import(/* webpackChunkName: "start" */ './casos')
@@ -19,8 +19,8 @@ const Casos = React.lazy(() =>
 const Pacientes = React.lazy(() =>
   import(/* webpackChunkName: "start" */ './pacientes')
 );
-const Ortodoncistas = React.lazy(() =>
-  import(/* webpackChunkName: "start" */ './ortodoncistas')
+const Doctores = React.lazy(() =>
+  import(/* webpackChunkName: "start" */ './doctores')
 );
 const Lorem = React.lazy(() =>
   import(/* webpackChunkName: "start" */ './lorem')
@@ -28,8 +28,20 @@ const Lorem = React.lazy(() =>
 const Ipsum = React.lazy(() =>
   import(/* webpackChunkName: "start" */ './ipsum')
 );
+const PacienteDetalles = React.lazy(() =>
+  import(/* webpackChunkName: "start" */ './pacienteDetalles')
+);
+const DoctorDetalles = React.lazy(() =>
+  import(/* webpackChunkName: "start" */ './doctorDetalles')
+);
+const CasoDetalles = React.lazy(() =>
+  import(/* webpackChunkName: "start" */ './casoDetalles')
+);
+const Cuenta = React.lazy(() =>
+  import(/* webpackChunkName: "start" */ './cuenta')
+);
 
-const Dashboard = ({ match }) => (
+const Admin = ({ match }) => (
   <Suspense fallback={<div className="loading" />}>
     <Switch>
       <Redirect exact from={`${match.url}/`} to={`${match.url}/inicio`} />
@@ -46,8 +58,8 @@ const Dashboard = ({ match }) => (
         render={(props) => <CrearPaciente {...props} />}
       />
       <Route
-        path={`${match.url}/crear-ortodoncista`}
-        render={(props) => <CrearOrtodoncista {...props} />}
+        path={`${match.url}/crear-doctor`}
+        render={(props) => <CrearDoctor {...props} />}
       />
       <Route
         path={`${match.url}/casos`}
@@ -58,8 +70,8 @@ const Dashboard = ({ match }) => (
         render={(props) => <Pacientes {...props} />}
       />
       <Route
-        path={`${match.url}/ortodoncistas`}
-        render={(props) => <Ortodoncistas {...props} />}
+        path={`${match.url}/doctores`}
+        render={(props) => <Doctores {...props} />}
       />
       <Route
         path={`${match.url}/lorem`}
@@ -69,8 +81,24 @@ const Dashboard = ({ match }) => (
         path={`${match.url}/ipsum`}
         render={(props) => <Ipsum {...props} />}
       />
+      <Route
+        path={`${match.url}/paciente`}
+        render={(props) => <PacienteDetalles {...props} />}
+      />
+      <Route
+        path={`${match.url}/doctor`}
+        render={(props) => <DoctorDetalles {...props} />}
+      />
+      <Route
+        path={`${match.url}/caso`}
+        render={(props) => <CasoDetalles {...props} />}
+      />
+      <Route
+        path={`${match.url}/cuenta`}
+        render={(props) => <Cuenta {...props} />}
+      />
       <Redirect to="/error" />
     </Switch>
   </Suspense>
 );
-export default Dashboard;
+export default Admin;

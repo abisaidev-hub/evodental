@@ -5,6 +5,8 @@ import DatePicker from 'react-datepicker';
 import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap';
 import { Colxx } from 'components/common/CustomBootstrap';
 
+import ReactAutoSugegstExample from 'containers/forms/ReactAutoSugegstExample';
+
 const FormCaso = () => {
   const onSubmit = (values) => {
     console.log(values);
@@ -38,6 +40,26 @@ const FormCaso = () => {
               {({ errors, touched }) => (
                 <Form className="av-tooltip tooltip-label-right">
                   <FormGroup>
+                    <Label>Seleccionar doctor</Label>
+                    <ReactAutoSugegstExample />
+                    {errors.type && touched.type && (
+                      <div className="invalid-feedback d-block">
+                        {errors.type}
+                      </div>
+                    )}
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label>Seleccionar paciente</Label>
+                    <ReactAutoSugegstExample />
+                    {errors.type && touched.type && (
+                      <div className="invalid-feedback d-block">
+                        {errors.type}
+                      </div>
+                    )}
+                  </FormGroup>
+
+                  <FormGroup>
                     <Label>Tipo de estudio</Label>
                     <Field
                       className="form-control"
@@ -54,6 +76,16 @@ const FormCaso = () => {
                   <FormGroup>
                     <Label>Fecha del estudio</Label>
                     <DatePicker selected={startDate} onChange={setStartDate} />
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label>Subir archivos</Label>
+                    <ReactAutoSugegstExample />
+                    {errors.type && touched.type && (
+                      <div className="invalid-feedback d-block">
+                        {errors.type}
+                      </div>
+                    )}
                   </FormGroup>
 
                   <Button color="primary" type="submit">
