@@ -14,7 +14,7 @@ const AppLayout = ({ containerClassnames, children, history }) => {
   return (
     <div id="app-container" className={containerClassnames}>
       <TopNav history={history} />
-      {pathFixed === 'admin' && <Sidebar />}
+      {pathFixed !== 'medico' && <Sidebar />}
       <main>
         <div className="container-fluid">{children}</div>
       </main>

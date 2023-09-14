@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Row,
   Card,
@@ -13,27 +13,45 @@ import {
   TabContent,
   TabPane,
 } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import classnames from 'classnames';
 import { injectIntl } from 'react-intl';
-import Rating from 'components/common/Rating';
+
+import axios from 'axios';
+
+import doctorHeadshot from 'assets/img/details/6.jpg';
 
 import Breadcrumb from 'containers/navs/Breadcrumb';
 import { Colxx } from 'components/common/CustomBootstrap';
 import IntlMessages from 'helpers/IntlMessages';
-import SmallLineCharts from 'containers/dashboards/SmallLineCharts';
-import WebsiteVisitsChartCard from 'containers/dashboards/WebsiteVisitsChartCard';
 import ListaCasosDashboard from 'containers/pages/ListaCasosDashboard';
 
 const PacienteDetalles = ({ match }) => {
   const [activeTab, setActiveTab] = useState('detalles');
   const [isEditActive, setIsEditActive] = useState(false);
 
+  const apiEvo = `${process.env.API}/Doctors`;
+
+  const { id } = useParams();
+
+  const [doctor, setDoctor] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${apiEvo}/${id}`).then((res) => {
+      setDoctor(res.data);
+    });
+  }, [id]);
+
+  console.log(doctor);
+  const { name, lastName, title, cosutltingRoom, phoneNumber, email } = doctor;
+
   return (
     <>
       <Row>
         <Colxx xxs="12">
-          <h1>Detalles del doctor</h1>
+          <h1>
+            {name}&nbsp;{lastName}
+          </h1>
           <div className="text-zero top-right-button-container">
             <UncontrolledDropdown>
               <DropdownToggle
@@ -49,12 +67,9 @@ const PacienteDetalles = ({ match }) => {
                 <DropdownItem onClick={() => setIsEditActive(!isEditActive)}>
                   <IntlMessages id="pages.editar-medico" />
                 </DropdownItem>
-                <DropdownItem disabled>
-                  <IntlMessages id="pages.borrar-medico" />
-                </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>
-                  <IntlMessages id="pages.another-action" />
+                  <IntlMessages id="pages.borrar-medico" />
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -73,20 +88,7 @@ const PacienteDetalles = ({ match }) => {
                 })}
                 onClick={() => setActiveTab('detalles')}
               >
-                <IntlMessages id="pages.detalles" />
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                location={{}}
-                to="#"
-                className={classnames({
-                  active: activeTab === 'estadisticas',
-                  'nav-link': true,
-                })}
-                onClick={() => setActiveTab('estadisticas')}
-              >
-                <IntlMessages id="pages.estadisticas" />
+                <IntlMessages id="pages.detalles-doctor" />
               </NavLink>
             </NavItem>
           </Nav>
@@ -104,50 +106,26 @@ const PacienteDetalles = ({ match }) => {
                       </div>
                     )}
                     <img
-                      src="/assets/img/details/1.jpg"
-                      alt="Detail"
+                      src={doctorHeadshot}
+                      alt="Foto de perfil del doctor"
                       className="card-img-top"
                     />
 
                     <CardBody>
                       <p className="text-muted text-small mb-2">Nombre</p>
-                      <p className="mb-3">Anna Wilson</p>
+                      <p className="mb-3">
+                        {name}&nbsp;{lastName}
+                      </p>
                       <p className="text-muted text-small mb-2">Especialidad</p>
-                      <p className="mb-3">Ortodoncista</p>
-                      <p className="text-muted text-small mb-2">Género</p>
-                      <p className="mb-3">Femenino</p>
-                      <p className="text-muted text-small mb-2">
-                        Fecha de nacimiento
-                      </p>
-                      <p className="mb-3">
-                        24 de Abril del 1987 &#8212; 35 años
-                      </p>
-                      <p className="text-muted text-small mb-2">Edad</p>
-                      <p className="mb-3">35 años</p>
-                      <p className="text-muted text-small mb-2">Dirección</p>
-                      <p className="mb-3">
-                        Avenida Aras #17, Ensenada, Baja California
-                      </p>
+                      <p className="mb-3">{title}</p>
+                      <p className="text-muted text-small mb-2">Empresa</p>
+                      <p className="mb-3">{cosutltingRoom}</p>
                       <p className="text-muted text-small mb-2">
                         Número de télefono
                       </p>
-                      <p className="mb-3">+52 123 456 7890</p>
+                      <p className="mb-3">+52 {phoneNumber}</p>
                       <p className="text-muted text-small mb-2">Correo</p>
-                      <p className="mb-3">awilson@evodental.com</p>
-                      <p className="text-muted text-small mb-2">
-                        Total de casos
-                      </p>
-                      <p className="mb-3">47</p>
-                      <p className="text-muted text-small mb-2">
-                        Total de pacientes
-                      </p>
-                      <p className="mb-3">32</p>
-                      <p className="text-muted text-small mb-2">
-                        <IntlMessages id="pages.rating" />
-                      </p>
-                      <div className="mb-3">
-                        <Rating total={5} rating={5} interactive={false} />
-                      </div>
+                      <p className="mb-3">{email}</p>
                     </CardBody>
                   </Card>
                 </Colxx>
@@ -156,10 +134,6 @@ const PacienteDetalles = ({ match }) => {
                   <ListaCasosDashboard />
                 </Colxx>
               </Row>
-            </TabPane>
-            <TabPane tabId="estadisticas">
-              <SmallLineCharts itemClass="dashboard-small-chart-analytics" />
-              <WebsiteVisitsChartCard className="mb-4" controls={false} />
             </TabPane>
           </TabContent>
         </Colxx>

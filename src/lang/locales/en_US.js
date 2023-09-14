@@ -63,6 +63,7 @@ module.exports = {
   'menu.paciente-detalles': 'Detalles del paciente',
   'menu.doctor-detalles': 'Detalles del doctor',
   'menu.medico': 'Dashboard Doctor',
+  'menu.cuenta': 'Cuenta',
 
   /* 04.Error Page */
   'pages.error-title': 'Ooops... looks like an error occurred!',
@@ -71,6 +72,8 @@ module.exports = {
 
   /* 05.Pages */
   'pages.options-title': 'OPTIONS',
+  'pages.display-options': 'Display Options',
+  'pages.another-action': 'Another action',
   'pages.borrar-paciente': 'Eliminar paciente',
   'pages.editar-paciente': 'Editar paciente',
   'pages.borrar-medico': 'Eliminar doctor',
@@ -82,5 +85,7 @@ module.exports = {
   'pages.editar-cuenta': 'Editar cuenta',
   'pages.casos': 'Casos',
   'pages.detalles': 'Detalles',
+  'pages.detalles-doctor': 'Detalles del medico',
+  'pages.detalles-cuenta': 'Detalles de la cuenta',
   'pages.pacientes': 'Pacientes',
 };

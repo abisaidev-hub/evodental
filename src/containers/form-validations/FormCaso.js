@@ -1,28 +1,42 @@
-import React, { useState } from 'react';
-import { Formik, Form, Field } from 'formik';
+import React, { useState, useRef } from 'react';
+import { Formik, Form } from 'formik';
 import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import Select from 'react-select';
+import CustomSelectInput from 'components/common/CustomSelectInput';
 
 import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap';
 import { Colxx } from 'components/common/CustomBootstrap';
 
-import ReactAutoSugegstExample from 'containers/forms/ReactAutoSugegstExample';
+import DropzoneCaso from 'containers/forms/DropzoneCaso';
+
+const selectDataDoctor = [
+  { label: 'Doctor 1 Name', value: 'doctor1', key: 0 },
+  { label: 'Doctor 2 Name', value: 'doctor2', key: 1 },
+];
+
+const selectDataPatient = [
+  { label: 'Patient 1 Name', value: 'patient1', key: 0 },
+  { label: 'Patient 2 Name', value: 'patient2', key: 1 },
+];
+
+const selectDataCaseType = [
+  { label: 'Completo', value: 'completo', key: 0 },
+  { label: 'Volumetría', value: 'volumetria', key: 1 },
+];
 
 const FormCaso = () => {
+  const dropzone = useRef();
+
   const onSubmit = (values) => {
     console.log(values);
   };
 
-  const validateFirstName = (value) => {
-    let error;
-    if (!value) {
-      error = 'Volumetría o completo';
-    } else if (value.length < 2) {
-      error = 'Estudio inválido';
-    }
-    return error;
-  };
-
   const [startDate, setStartDate] = useState(new Date());
+
+  const [selectedOptionDoctor, setSelectedOptionDoctor] = useState('');
+  const [selectedOptionPatient, setSelectedOptionPatient] = useState('');
+  const [selectedOptionCaseType, setSelectedOptionCaseType] = useState('');
 
   return (
     <Row className="mb-4">
@@ -37,55 +51,64 @@ const FormCaso = () => {
               }}
               onSubmit={onSubmit}
             >
-              {({ errors, touched }) => (
+              {() => (
                 <Form className="av-tooltip tooltip-label-right">
                   <FormGroup>
-                    <Label>Seleccionar doctor</Label>
-                    <ReactAutoSugegstExample />
-                    {errors.type && touched.type && (
-                      <div className="invalid-feedback d-block">
-                        {errors.type}
-                      </div>
-                    )}
+                    <Label>Asignar doctor</Label>
+                    <Select
+                      components={{ Input: CustomSelectInput }}
+                      className="react-select"
+                      classNamePrefix="react-select"
+                      name="doctor"
+                      value={selectedOptionDoctor}
+                      onChange={setSelectedOptionDoctor}
+                      options={selectDataDoctor}
+                      placeholder="Seleccionar..."
+                    />
                   </FormGroup>
 
                   <FormGroup>
-                    <Label>Seleccionar paciente</Label>
-                    <ReactAutoSugegstExample />
-                    {errors.type && touched.type && (
-                      <div className="invalid-feedback d-block">
-                        {errors.type}
-                      </div>
-                    )}
+                    <Label>Asignar paciente</Label>
+                    <Select
+                      components={{ Input: CustomSelectInput }}
+                      className="react-select"
+                      classNamePrefix="react-select"
+                      name="patient"
+                      value={selectedOptionPatient}
+                      onChange={setSelectedOptionPatient}
+                      options={selectDataPatient}
+                      placeholder="Seleccionar..."
+                    />
                   </FormGroup>
 
                   <FormGroup>
                     <Label>Tipo de estudio</Label>
-                    <Field
-                      className="form-control"
-                      name="name"
-                      validate={validateFirstName}
+                    <Select
+                      components={{ Input: CustomSelectInput }}
+                      className="react-select"
+                      classNamePrefix="react-select"
+                      name="caseType"
+                      value={selectedOptionCaseType}
+                      onChange={setSelectedOptionCaseType}
+                      options={selectDataCaseType}
+                      placeholder="Seleccionar..."
                     />
-                    {errors.name && touched.name && (
-                      <div className="invalid-feedback d-block">
-                        {errors.name}
-                      </div>
-                    )}
                   </FormGroup>
 
                   <FormGroup>
                     <Label>Fecha del estudio</Label>
-                    <DatePicker selected={startDate} onChange={setStartDate} />
+                    <DatePicker
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                      dateFormat="dd/MM/yyyy"
+                      showMonthDropdown
+                      showYearDropdown
+                    />
                   </FormGroup>
 
                   <FormGroup>
                     <Label>Subir archivos</Label>
-                    <ReactAutoSugegstExample />
-                    {errors.type && touched.type && (
-                      <div className="invalid-feedback d-block">
-                        {errors.type}
-                      </div>
-                    )}
+                    <DropzoneCaso ref={dropzone} />
                   </FormGroup>
 
                   <Button color="primary" type="submit">

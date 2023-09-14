@@ -4,12 +4,6 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 const Inicio = React.lazy(() =>
   import(/* webpackChunkName: "start" */ './inicio')
 );
-const Lorem = React.lazy(() =>
-  import(/* webpackChunkName: "start" */ './lorem')
-);
-const Ipsum = React.lazy(() =>
-  import(/* webpackChunkName: "start" */ './ipsum')
-);
 const CasoDetalles = React.lazy(() =>
   import(/* webpackChunkName: "start" */ './casoDetalles')
 );
@@ -24,14 +18,6 @@ const Medico = ({ match }) => (
       <Route
         path={`${match.url}/inicio`}
         render={(props) => <Inicio {...props} />}
-      />
-      <Route
-        path={`${match.url}/lorem`}
-        render={(props) => <Lorem {...props} />}
-      />
-      <Route
-        path={`${match.url}/ipsum`}
-        render={(props) => <Ipsum {...props} />}
       />
       <Route
         path={`${match.url}/caso`}

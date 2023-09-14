@@ -4,7 +4,6 @@ import { Card, CardBody } from 'reactstrap';
 const GradientWithRadialProgressCard = ({
   icon = 'iconsminds-bell',
   title = 'title',
-  detail = 'detail',
 }) => {
   return (
     <Card className="progress-banner">
@@ -15,7 +14,6 @@ const GradientWithRadialProgressCard = ({
           />
           <div>
             <p className="lead text-white">{title}</p>
-            <p className="text-small text-white">{detail}</p>
           </div>
         </div>
       </CardBody>

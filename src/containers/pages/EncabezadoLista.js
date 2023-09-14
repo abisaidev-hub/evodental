@@ -3,15 +3,14 @@ import React, { useState } from 'react';
 import {
   Row,
   Button,
-  ButtonDropdown,
   UncontrolledDropdown,
   DropdownMenu,
   DropdownItem,
   DropdownToggle,
-  CustomInput,
   Collapse,
 } from 'reactstrap';
 import { injectIntl } from 'react-intl';
+import { useLocation, useHistory } from 'react-router-dom';
 
 import { Colxx, Separator } from 'components/common/CustomBootstrap';
 import IntlMessages from 'helpers/IntlMessages';
@@ -23,7 +22,6 @@ const EncabezadoLista = ({
   intl,
   displayMode,
   changeDisplayMode,
-  handleChangeSelectAll,
   changeOrderBy,
   changePageSize,
   selectedPageSize,
@@ -32,21 +30,26 @@ const EncabezadoLista = ({
   match,
   startIndex,
   endIndex,
-  selectedItemsLength,
-  itemsLength,
   onSearchKey,
   orderOptions,
   pageSizes,
-  toggleModal,
   heading,
-  dropdownFirstOption,
   addButtonText,
   viewText,
+  addPath,
 }) => {
-  const [dropdownSplitOpen, setDropdownSplitOpen] = useState(false);
   const [displayOptionsIsOpen, setDisplayOptionsIsOpen] = useState(false);
   const { messages } = intl;
 
+  const location = useLocation();
+  const path = location.pathname;
+  const paths = path.split('/');
+  const pathFixed = paths[2];
+  const navigate = useHistory();
+
+  const handleCreate = () => {
+    navigate.push(`/app/admin/${addPath}`);
+  };
   return (
     <Row>
       <Colxx xxs="12">
@@ -54,52 +57,19 @@ const EncabezadoLista = ({
           <h1>
             <IntlMessages id={heading} />
           </h1>
-
-          <div className="text-zero top-right-button-container">
-            <Button
-              color="primary"
-              size="lg"
-              className="top-right-button"
-              onClick={() => toggleModal()}
-            >
-              {addButtonText}
-            </Button>
-            {'  '}
-            <ButtonDropdown
-              isOpen={dropdownSplitOpen}
-              toggle={() => setDropdownSplitOpen(!dropdownSplitOpen)}
-            >
-              <div className="btn btn-primary btn-lg pl-4 pr-0 check-button check-all">
-                <CustomInput
-                  className="custom-checkbox mb-0 d-inline-block"
-                  type="checkbox"
-                  id="checkAll"
-                  checked={selectedItemsLength >= itemsLength}
-                  onChange={() => handleChangeSelectAll(true)}
-                  label={
-                    <span
-                      className={`custom-control-label ${
-                        selectedItemsLength > 0 &&
-                        selectedItemsLength < itemsLength
-                          ? 'indeterminate'
-                          : ''
-                      }`}
-                    />
-                  }
-                />
-              </div>
-              <DropdownToggle
-                caret
+          {pathFixed === 'admin' && (
+            <div className="text-zero top-right-button-container">
+              <Button
                 color="primary"
-                className="dropdown-toggle-split btn-lg"
-              />
-              <DropdownMenu right>
-                <DropdownItem>{dropdownFirstOption}</DropdownItem>
-                <DropdownItem>Lorem</DropdownItem>
-                <DropdownItem>Ipsum</DropdownItem>
-              </DropdownMenu>
-            </ButtonDropdown>
-          </div>
+                size="lg"
+                className="top-right-button"
+                onClick={handleCreate}
+              >
+                {addButtonText}
+              </Button>
+              {'  '}
+            </div>
+          )}
           <Breadcrumb match={match} />
         </div>
 

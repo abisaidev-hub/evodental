@@ -1,27 +1,21 @@
 const data = [
   {
     img: '/assets/img/profiles/l-2.jpg',
-    title: 'Joisse Kaycee just sent a new comment!',
-    date: '09.04.2018 - 12:45',
+    title: '¡Has sido asignado a un nuevo caso!',
+    date: '05.09.2023 - 11:15',
     id: 1,
   },
   {
     img: '/assets/img/notifications/thumb-1.jpg',
-    title: '1 item is out of stock!',
-    date: '09.04.2018 - 12:45',
+    title: '¡Has sido asignado a un nuevo caso!',
+    date: '05.09.2023 - 18:37',
     id: 2,
   },
   {
-    img: '/assets/img/notifications/thumb-2.jpg',
-    title: 'New order received! It is total $147,20.',
-    date: '09.04.2018 - 12:45',
+    img: '/assets/img/notifications/thumb-1.jpg',
+    title: '¡Has sido asignado a un nuevo caso!',
+    date: '06.09.2023 - 09:21',
     id: 3,
-  },
-  {
-    img: '/assets/img/notifications/thumb-3.jpg',
-    title: '3 items just added to wish list by a user!',
-    date: '09.04.2018 - 12:45',
-    id: 4,
   },
 ];
 export default data;

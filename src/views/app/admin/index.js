@@ -22,12 +22,6 @@ const Pacientes = React.lazy(() =>
 const Doctores = React.lazy(() =>
   import(/* webpackChunkName: "start" */ './doctores')
 );
-const Lorem = React.lazy(() =>
-  import(/* webpackChunkName: "start" */ './lorem')
-);
-const Ipsum = React.lazy(() =>
-  import(/* webpackChunkName: "start" */ './ipsum')
-);
 const PacienteDetalles = React.lazy(() =>
   import(/* webpackChunkName: "start" */ './pacienteDetalles')
 );
@@ -74,19 +68,11 @@ const Admin = ({ match }) => (
         render={(props) => <Doctores {...props} />}
       />
       <Route
-        path={`${match.url}/lorem`}
-        render={(props) => <Lorem {...props} />}
-      />
-      <Route
-        path={`${match.url}/ipsum`}
-        render={(props) => <Ipsum {...props} />}
-      />
-      <Route
         path={`${match.url}/paciente`}
         render={(props) => <PacienteDetalles {...props} />}
       />
       <Route
-        path={`${match.url}/doctor`}
+        path={`${match.url}/doctor/:id`}
         render={(props) => <DoctorDetalles {...props} />}
       />
       <Route

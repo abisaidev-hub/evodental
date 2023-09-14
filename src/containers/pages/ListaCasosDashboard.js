@@ -7,17 +7,7 @@ import axios from 'axios';
 import { servicePath } from 'constants/defaultValues';
 
 import EncabezadoListaDashboard from 'containers/pages/EncabezadoListaDashboard';
-import ListPageListing from 'containers/pages/ListPageListing';
-import useMousetrap from 'hooks/use-mousetrap';
-
-const getIndex = (value, arr, prop) => {
-  for (let i = 0; i < arr.length; i += 1) {
-    if (arr[i][prop] === value) {
-      return i;
-    }
-  }
-  return -1;
-};
+import CasoListPageListing from 'containers/pages/CasoListPageListing';
 
 const apiUrl = `${servicePath}/cakes/paging`;
 
@@ -37,13 +27,10 @@ const ListaDoctoresDashboard = ({ match }) => {
     label: 'Más recientes',
   });
 
-  const [modalOpen, setModalOpen] = useState(false);
   const [totalItemCount, setTotalItemCount] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
   const [search, setSearch] = useState('');
-  const [selectedItems, setSelectedItems] = useState([]);
   const [items, setItems] = useState([]);
-  const [lastChecked, setLastChecked] = useState(null);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -65,7 +52,6 @@ const ListaDoctoresDashboard = ({ match }) => {
               return { ...x, img: x.img.replace('img/', 'img/products/') };
             })
           );
-          setSelectedItems([]);
           setTotalItemCount(data.totalItem);
           setIsLoaded(true);
         });
@@ -73,77 +59,10 @@ const ListaDoctoresDashboard = ({ match }) => {
     fetchData();
   }, [selectedPageSize, currentPage, selectedOrderOption, search]);
 
-  const onCheckItem = (event, id) => {
-    if (
-      event.target.tagName === 'A' ||
-      (event.target.parentElement && event.target.parentElement.tagName === 'A')
-    ) {
-      return true;
-    }
-    if (lastChecked === null) {
-      setLastChecked(id);
-    }
-
-    let selectedList = [...selectedItems];
-    if (selectedList.includes(id)) {
-      selectedList = selectedList.filter((x) => x !== id);
-    } else {
-      selectedList.push(id);
-    }
-    setSelectedItems(selectedList);
-
-    if (event.shiftKey) {
-      let newItems = [...items];
-      const start = getIndex(id, newItems, 'id');
-      const end = getIndex(lastChecked, newItems, 'id');
-      newItems = newItems.slice(Math.min(start, end), Math.max(start, end) + 1);
-      selectedItems.push(
-        ...newItems.map((item) => {
-          return item.id;
-        })
-      );
-      selectedList = Array.from(new Set(selectedItems));
-      setSelectedItems(selectedList);
-    }
-    document.activeElement.blur();
-    return false;
-  };
-
-  const handleChangeSelectAll = (isToggle) => {
-    if (selectedItems.length >= items.length) {
-      if (isToggle) {
-        setSelectedItems([]);
-      }
-    } else {
-      setSelectedItems(items.map((x) => x.id));
-    }
-    document.activeElement.blur();
-    return false;
-  };
-
   const onContextMenuClick = (e, data) => {
     // params : (e,data,target)
-    console.log('onContextMenuClick - selected items', selectedItems);
     console.log('onContextMenuClick - action : ', data.action);
   };
-
-  const onContextMenu = (e, data) => {
-    const clickedProductId = data.data;
-    if (!selectedItems.includes(clickedProductId)) {
-      setSelectedItems([clickedProductId]);
-    }
-
-    return true;
-  };
-
-  useMousetrap(['ctrl+a', 'command+a'], () => {
-    handleChangeSelectAll(false);
-  });
-
-  useMousetrap(['ctrl+d', 'command+d'], () => {
-    setSelectedItems([]);
-    return false;
-  });
 
   const startIndex = (currentPage - 1) * selectedPageSize;
   const endIndex = currentPage * selectedPageSize;
@@ -160,12 +79,10 @@ const ListaDoctoresDashboard = ({ match }) => {
           <div className="disable-text-selection">
             <EncabezadoListaDashboard
               addButtonText="Crear nuevo paciente"
-              dropdownFirstOption="Eliminar paciente"
               viewText="casos"
               heading="menu.pacientes"
               displayMode={displayMode}
               changeDisplayMode={setDisplayMode}
-              handleChangeSelectAll={handleChangeSelectAll}
               changeOrderBy={(column) => {
                 setSelectedOrderOption(
                   orderOptions.find((x) => x.column === column)
@@ -178,7 +95,6 @@ const ListaDoctoresDashboard = ({ match }) => {
               match={match}
               startIndex={startIndex}
               endIndex={endIndex}
-              selectedItemsLength={selectedItems ? selectedItems.length : 0}
               itemsLength={items ? items.length : 0}
               onSearchKey={(e) => {
                 if (e.key === 'Enter') {
@@ -187,17 +103,13 @@ const ListaDoctoresDashboard = ({ match }) => {
               }}
               orderOptions={orderOptions}
               pageSizes={pageSizes}
-              toggleModal={() => setModalOpen(!modalOpen)}
             />
-            <ListPageListing
+            <CasoListPageListing
               items={items}
               displayMode={displayMode}
-              selectedItems={selectedItems}
-              onCheckItem={onCheckItem}
               currentPage={currentPage}
               totalPage={totalPage}
               onContextMenuClick={onContextMenuClick}
-              onContextMenu={onContextMenu}
               onChangePage={setCurrentPage}
               type="caso"
             />

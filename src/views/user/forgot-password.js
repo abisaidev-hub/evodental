@@ -8,6 +8,8 @@ import IntlMessages from 'helpers/IntlMessages';
 import { forgotPassword } from 'redux/actions';
 import { NotificationManager } from 'components/common/react-notifications';
 
+import evodentalLogo from 'assets/logos/evodental-logo.png';
+
 const validateEmail = (value) => {
   let error;
   if (!value) {
@@ -25,7 +27,7 @@ const ForgotPassword = ({
   error,
   forgotPasswordAction,
 }) => {
-  const [email] = useState('demo@coloredstrategies.com');
+  const [email] = useState('admin@evodental.com');
 
   const onForgotPassword = (values) => {
     if (!loading) {
@@ -63,22 +65,25 @@ const ForgotPassword = ({
       <Colxx xxs="12" md="10" className="mx-auto my-auto">
         <Card className="auth-card">
           <div className="position-relative image-side ">
-            <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
+            <p className="text-white h2">EL FUTURO DEL SISTEMA MÉDICO</p>
             <p className="white mb-0">
-              Please use your e-mail to reset your password. <br />
-              If you are not a member, please{' '}
-              <NavLink to="/user/register" className="white">
-                register
-              </NavLink>
-              .
+              Ingresa tu correo para reestablecer tu contraseña.
+              <br />
+              <br />
+              Si usted aún no es un miembro, por favor contacte al administrador
+              de su institución.
             </p>
           </div>
           <div className="form-side">
-            <NavLink to="/" className="white">
-              <span className="logo-single" />
-            </NavLink>
+            <img
+              src={evodentalLogo}
+              alt=""
+              width="120px"
+              style={{ padding: '0 0 4rem 0' }}
+            />
             <CardTitle className="mb-4">
-              <IntlMessages id="user.forgot-password" />
+              Ingresa tu correo y te enviaremos un enlace para reestablecer tu
+              contraseña
             </CardTitle>
 
             <Formik initialValues={initialValues} onSubmit={onForgotPassword}>
@@ -101,9 +106,7 @@ const ForgotPassword = ({
                   </FormGroup>
 
                   <div className="d-flex justify-content-between align-items-center">
-                    <NavLink to="/user/forgot-password">
-                      <IntlMessages id="user.forgot-password-question" />
-                    </NavLink>
+                    <NavLink to="/user/login">Iniciar sesión</NavLink>
                     <Button
                       color="primary"
                       className={`btn-shadow btn-multiple-state ${
@@ -116,9 +119,7 @@ const ForgotPassword = ({
                         <span className="bounce2" />
                         <span className="bounce3" />
                       </span>
-                      <span className="label">
-                        <IntlMessages id="user.reset-password-button" />
-                      </span>
+                      <span className="label">ENVIAR</span>
                     </Button>
                   </div>
                 </Form>
