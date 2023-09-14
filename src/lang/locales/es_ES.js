@@ -63,6 +63,7 @@ module.exports = {
   'menu.paciente-detalles': 'Detalles del paciente',
   'menu.doctor-detalles': 'Detalles del doctor',
   'menu.medico': 'Dashboard Doctor',
+  'menu.cuenta': 'Cuenta',
 
   /* 04.Error  */
   'layouts.error-title': 'Vaya, parece que ha ocurrido un error!',
@@ -70,6 +71,7 @@ module.exports = {
   'layouts.go-back-home': 'REGRESAR A INICIO',
 
   /* 05.Pages */
+  'pages.display-options': 'Display Options',
   'pages.options-title': 'OPCIONES',
   'pages.borrar-paciente': 'Eliminar paciente',
   'pages.editar-paciente': 'Editar paciente',
@@ -82,6 +84,8 @@ module.exports = {
   'pages.editar-cuenta': 'Editar cuenta',
   'pages.casos': 'Casos',
   'pages.detalles': 'Detalles',
+  'pages.detalles-doctor': 'Detalles del medico',
+  'pages.detalles-cuenta': 'Detalles de la cuenta',
   'pages.pacientes': 'Pacientes',
   'pages.estadisticas': 'Estadísticas',
 };

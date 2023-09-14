@@ -8,6 +8,8 @@ import IntlMessages from 'helpers/IntlMessages';
 import { resetPassword } from 'redux/actions';
 import { NotificationManager } from 'components/common/react-notifications';
 
+import evodentalLogo from 'assets/logos/evodental-logo.png';
+
 const validateNewPassword = (values) => {
   const { newPassword, newPasswordAgain } = values;
   const errors = {};
@@ -80,23 +82,23 @@ const ResetPassword = ({
       <Colxx xxs="12" md="10" className="mx-auto my-auto">
         <Card className="auth-card">
           <div className="position-relative image-side ">
-            <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
+            <p className="text-white h2">EL FUTURO DEL SISTEMA MÉDICO</p>
             <p className="white mb-0">
-              Please use your e-mail to reset your password. <br />
-              If you are not a member, please{' '}
-              <NavLink to="/register" className="white">
-                register
-              </NavLink>
-              .
+              Bienvenido al portal para reestablecer tu contraseña.
+              <br />
+              <br />
+              Si usted aún no es un miembro, por favor contacte al administrador
+              de su institución.
             </p>
           </div>
           <div className="form-side">
-            <NavLink to="/" className="white">
-              <span className="logo-single" />
-            </NavLink>
-            <CardTitle className="mb-4">
-              <IntlMessages id="user.reset-password" />
-            </CardTitle>
+            <img
+              src={evodentalLogo}
+              alt=""
+              width="120px"
+              style={{ padding: '0 0 4rem 0' }}
+            />
+            <CardTitle className="mb-4">Ingrese su nueva contraseña</CardTitle>
 
             <Formik
               validate={validateNewPassword}
@@ -106,9 +108,7 @@ const ResetPassword = ({
               {({ errors, touched }) => (
                 <Form className="av-tooltip tooltip-label-bottom">
                   <FormGroup className="form-group has-float-label">
-                    <Label>
-                      <IntlMessages id="user.new-password" />
-                    </Label>
+                    <Label>Nueva contraseña</Label>
                     <Field
                       className="form-control"
                       name="newPassword"
@@ -116,9 +116,7 @@ const ResetPassword = ({
                     />
                   </FormGroup>
                   <FormGroup className="form-group has-float-label">
-                    <Label>
-                      <IntlMessages id="user.new-password-again" />
-                    </Label>
+                    <Label>Confirme su nueva contraseña</Label>
                     <Field
                       className="form-control"
                       name="newPasswordAgain"
@@ -147,9 +145,7 @@ const ResetPassword = ({
                         <span className="bounce2" />
                         <span className="bounce3" />
                       </span>
-                      <span className="label">
-                        <IntlMessages id="user.reset-password-button" />
-                      </span>
+                      <span className="label">REESTABLECER</span>
                     </Button>
                   </div>
                 </Form>

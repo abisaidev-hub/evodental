@@ -1,61 +1,95 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
+import { useHistory } from 'react-router-dom';
+
+import axios from 'axios';
 
 import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap';
 import { Colxx } from 'components/common/CustomBootstrap';
 
-import ReactAutoSugegstExample from 'containers/forms/ReactAutoSugegstExample';
-
 const FormMedico = () => {
+  const navigate = useHistory();
+
   const onSubmit = (values) => {
+    axios
+      .post(`${process.env.API}/Doctors`, values)
+      .then(() => {
+        navigate.push(`/app/admin/doctores`);
+        window.scrollTo(0, 0);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     console.log(values);
   };
 
   const validateFirstName = (value) => {
     let error;
     if (!value) {
-      error = 'Nombre o nombres del doctor';
+      error = 'Nombre del doctor';
     } else if (value.length < 2) {
       error = 'El nombre tiene que tener 2 o más letras';
     }
     return error;
   };
 
-  const validateFirstLastName = (value) => {
+  const validateLastName = (value) => {
     let error;
     if (!value) {
-      error = 'Apellido materno del doctor';
+      error = 'Apellidos del doctor';
     } else if (value.length < 2) {
-      error = 'El apellido materno tiene que tener 2 o más letras';
+      error = 'Los apellidos tiene que tener 2 o más letras';
     }
     return error;
   };
 
-  const validateSecondLastName = (value) => {
+  const validateGender = (value) => {
     let error;
     if (!value) {
-      error = 'Apellido paterno del doctor';
+      error = 'Género del doctor';
     } else if (value.length < 2) {
-      error = 'El apellido paterno tiene que tener 2 o más letras';
+      error = 'El género tiene que tener 2 o más letras';
     }
     return error;
   };
 
-  /* const validateCity = (value) => {
+  const validateTitle = (value) => {
     let error;
     if (!value) {
-      error = 'Ciudad del doctor';
-    } else if (!value) {
-      error = 'Ciudad no válida';
+      error = 'Título del doctor';
+    } else if (value.length < 2) {
+      error = 'El título tiene que tener 2 o más letras';
     }
     return error;
-  }; */
+  };
+
+  const validateSpecialty = (value) => {
+    let error;
+    if (!value) {
+      error = 'Especialidad del doctor';
+    } else if (value.length < 2) {
+      error = 'La especialidad tiene que tener 2 o más letras';
+    }
+    return error;
+  };
+
+  const validateBusinessName = (value) => {
+    let error;
+    if (!value) {
+      error = 'Empresa que representa el doctor';
+    } else if (value.length < 2) {
+      error = 'La empresa tiene que tener 2 o más letras';
+    }
+    return error;
+  };
 
   const validatePhone = (value) => {
     let error;
     if (!value) {
       error = 'Número del doctor, despues de +52';
     } else if (!/^[0-9]/i.test(value)) {
+      error = 'Número inválido';
+    } else if (value.length > 10) {
       error = 'Número inválido';
     }
     return error;
@@ -71,6 +105,26 @@ const FormMedico = () => {
     return error;
   };
 
+  const validateUserName = (value) => {
+    let error;
+    if (!value) {
+      error = 'Nombre de usuario de la cuenta del doctor';
+    } else if (value.length < 2) {
+      error = 'El nombre de usuario tiene que tener 2 o más letras';
+    }
+    return error;
+  };
+
+  const validatePassword = (value) => {
+    let error;
+    if (!value) {
+      error = 'Contraseña de la cuenta del doctor';
+    } else if (value.length < 2) {
+      error = 'El nombre tiene que tener 2 o más letras';
+    }
+    return error;
+  };
+
   return (
     <Row className="mb-4">
       <Colxx xxs="12">
@@ -79,71 +133,125 @@ const FormMedico = () => {
             <h6 className="mb-4">Crear un nuevo doctor</h6>
             <Formik
               initialValues={{
-                name: '',
+                firstName: '',
+                middleName: '',
+                lastName: '',
+                gender: '',
+                title: '',
+                specialty: '',
+                businessName: '',
+                phoneNumber: '',
                 email: '',
+                userName: '',
+                password: '',
+                user: {
+                  email: '',
+                  firstName: '',
+                  gender: '',
+                  lastName: '',
+                  middleName: '',
+                  password: '',
+                  userName: '',
+                },
               }}
               onSubmit={onSubmit}
             >
               {({ errors, touched }) => (
                 <Form className="av-tooltip tooltip-label-right">
                   <FormGroup>
-                    <Label>Nombre(s)</Label>
+                    <Label>Nombre</Label>
                     <Field
                       className="form-control"
-                      name="name"
+                      name="firstName"
                       validate={validateFirstName}
                     />
-                    {errors.name && touched.name && (
+                    {errors.firstName && touched.firstName && (
                       <div className="invalid-feedback d-block">
-                        {errors.name}
+                        {errors.firstName}
                       </div>
                     )}
                   </FormGroup>
 
                   <FormGroup>
-                    <Label>Apellido materno</Label>
+                    <Label>Segundo nombre</Label>
                     <Field
                       className="form-control"
-                      name="firstLastName"
-                      validate={validateFirstLastName}
+                      name="middleName"
+                      /* validate={validateMiddleName} */
                     />
-                    {errors.firstLastName && touched.firstLastName && (
+                    {errors.middleName && touched.middleName && (
                       <div className="invalid-feedback d-block">
-                        {errors.firstLastName}
+                        {errors.middleName}
                       </div>
                     )}
                   </FormGroup>
 
                   <FormGroup>
-                    <Label>Apellido paterno</Label>
+                    <Label>Apellido(s)</Label>
                     <Field
                       className="form-control"
-                      name="secondLastName"
-                      validate={validateSecondLastName}
+                      name="lastName"
+                      validate={validateLastName}
                     />
-                    {errors.secondLastName && touched.secondLastName && (
+                    {errors.lastName && touched.lastName && (
                       <div className="invalid-feedback d-block">
-                        {errors.secondLastName}
+                        {errors.lastName}
+                      </div>
+                    )}
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label>Género</Label>
+                    <Field
+                      className="form-control"
+                      name="gender"
+                      validate={validateGender}
+                    />
+                    {errors.gender && touched.gender && (
+                      <div className="invalid-feedback d-block">
+                        {errors.gender}
+                      </div>
+                    )}
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label>Título</Label>
+                    <Field
+                      className="form-control"
+                      name="title"
+                      validate={validateTitle}
+                    />
+                    {errors.title && touched.title && (
+                      <div className="invalid-feedback d-block">
+                        {errors.title}
                       </div>
                     )}
                   </FormGroup>
 
                   <FormGroup>
                     <Label>Especialidad</Label>
-                    <ReactAutoSugegstExample />
-                    {errors.type && touched.type && (
+                    <Field
+                      className="form-control"
+                      name="specialty"
+                      validate={validateSpecialty}
+                    />
+                    {errors.specialty && touched.specialty && (
                       <div className="invalid-feedback d-block">
-                        {errors.type}
+                        {errors.specialty}
                       </div>
                     )}
                   </FormGroup>
 
                   <FormGroup>
                     <Label>Empresa</Label>
-                    <ReactAutoSugegstExample />
-                    {errors.company && touched.company && (
+                    <Field
+                      className="form-control"
+                      name="businessName"
+                      validate={validateBusinessName}
+                    />
+                    {errors.businessName && touched.businessName && (
                       <div className="invalid-feedback d-block">
-                        {errors.company}
+                        {errors.businessName}
                       </div>
                     )}
                   </FormGroup>
@@ -152,12 +260,12 @@ const FormMedico = () => {
                     <Label>Número de teléfono</Label>
                     <Field
                       className="form-control"
-                      name="phone"
+                      name="phoneNumber"
                       validate={validatePhone}
                     />
-                    {errors.phone && touched.phone && (
+                    {errors.phoneNumber && touched.phoneNumber && (
                       <div className="invalid-feedback d-block">
-                        {errors.phone}
+                        {errors.phoneNumber}
                       </div>
                     )}
                   </FormGroup>
@@ -174,6 +282,39 @@ const FormMedico = () => {
                         {errors.email}
                       </div>
                     )}
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label>Nombre de usuario</Label>
+                    <Field
+                      className="form-control"
+                      name="userName"
+                      validate={validateUserName}
+                    />
+                    {errors.userName && touched.userName && (
+                      <div className="invalid-feedback d-block">
+                        {errors.userName}
+                      </div>
+                    )}
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label>Contraseña</Label>
+                    <Field
+                      className="form-control"
+                      name="password"
+                      validate={validatePassword}
+                    />
+                    {errors.password && touched.password && (
+                      <div className="invalid-feedback d-block">
+                        {errors.password}
+                      </div>
+                    )}
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label>User</Label>
+                    <Field className="form-control" name="user" />
                   </FormGroup>
 
                   <Button color="primary" type="submit">

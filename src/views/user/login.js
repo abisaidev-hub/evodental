@@ -3,6 +3,8 @@ import { Row, Card, CardTitle, Label, FormGroup, Button } from 'reactstrap';
 import { NavLink, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import evodentalLogo from 'assets/logos/evodental-logo.png';
+
 import { Formik, Form, Field } from 'formik';
 import { NotificationManager } from 'components/common/react-notifications';
 
@@ -73,9 +75,12 @@ const Login = ({ history, loading, error, loginUserAction }) => {
             </p>
           </div>
           <div className="form-side">
-            <NavLink to="/" className="white">
-              <span className="logo-single" />
-            </NavLink>
+            <img
+              src={evodentalLogo}
+              alt=""
+              width="120px"
+              style={{ padding: '0 0 4rem 0' }}
+            />
             <CardTitle className="mb-4">
               <IntlMessages id="user.login-title" />
             </CardTitle>

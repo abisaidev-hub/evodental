@@ -1,15 +1,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-use-before-define */
-import React, { useState } from 'react';
+import React from 'react';
 import { injectIntl } from 'react-intl';
+
+import evodentalLogo from 'assets/logos/evodental-logo.png';
 
 import {
   UncontrolledDropdown,
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
-  Input,
 } from 'reactstrap';
 
 import { NavLink, useLocation, useHistory } from 'react-router-dom';
@@ -22,8 +23,6 @@ import {
 } from 'redux/actions';
 
 import {
-  menuHiddenBreakpoint,
-  searchPath,
   localeOptions,
   isDarkSwitchActive,
   adminRoot,
@@ -31,13 +30,10 @@ import {
 
 import { MobileMenuIcon, MenuIcon } from 'components/svg';
 import { getDirection, setDirection } from 'helpers/Utils';
-import TopnavEasyAccess from './Topnav.EasyAccess';
 import TopnavNotifications from './Topnav.Notifications';
 import TopnavDarkSwitch from './Topnav.DarkSwitch';
 
 const TopNav = ({
-  intl,
-  history,
   containerClassnames,
   menuClickCount,
   selectedMenuHasSubItems,
@@ -46,18 +42,11 @@ const TopNav = ({
   clickOnMobileMenuAction,
   changeLocaleAction,
 }) => {
-  const [isInFullScreen, setIsInFullScreen] = useState(false);
-  const [searchKeyword, setSearchKeyword] = useState('');
   const location = useLocation();
   const path = location.pathname;
   const paths = path.split('/');
   const pathFixed = paths[2];
   const navigate = useHistory();
-
-  const search = () => {
-    history.push(`${searchPath}?key=${searchKeyword}`);
-    setSearchKeyword('');
-  };
 
   const handleChangeLocale = (_locale, direction) => {
     changeLocaleAction(_locale);
@@ -69,112 +58,6 @@ const TopNav = ({
         window.location.reload();
       }, 500);
     }
-  };
-
-  const isInFullScreenFn = () => {
-    return (
-      (document.fullscreenElement && document.fullscreenElement !== null) ||
-      (document.webkitFullscreenElement &&
-        document.webkitFullscreenElement !== null) ||
-      (document.mozFullScreenElement &&
-        document.mozFullScreenElement !== null) ||
-      (document.msFullscreenElement && document.msFullscreenElement !== null)
-    );
-  };
-
-  const handleSearchIconClick = (e) => {
-    if (window.innerWidth < menuHiddenBreakpoint) {
-      let elem = e.target;
-      if (!e.target.classList.contains('search')) {
-        if (e.target.parentElement.classList.contains('search')) {
-          elem = e.target.parentElement;
-        } else if (
-          e.target.parentElement.parentElement.classList.contains('search')
-        ) {
-          elem = e.target.parentElement.parentElement;
-        }
-      }
-
-      if (elem.classList.contains('mobile-view')) {
-        search();
-        elem.classList.remove('mobile-view');
-        removeEventsSearch();
-      } else {
-        elem.classList.add('mobile-view');
-        addEventsSearch();
-      }
-    } else {
-      search();
-    }
-    e.stopPropagation();
-  };
-
-  const handleDocumentClickSearch = (e) => {
-    let isSearchClick = false;
-    if (
-      e.target &&
-      e.target.classList &&
-      (e.target.classList.contains('navbar') ||
-        e.target.classList.contains('simple-icon-magnifier'))
-    ) {
-      isSearchClick = true;
-      if (e.target.classList.contains('simple-icon-magnifier')) {
-        search();
-      }
-    } else if (
-      e.target.parentElement &&
-      e.target.parentElement.classList &&
-      e.target.parentElement.classList.contains('search')
-    ) {
-      isSearchClick = true;
-    }
-
-    if (!isSearchClick) {
-      const input = document.querySelector('.mobile-view');
-      if (input && input.classList) input.classList.remove('mobile-view');
-      removeEventsSearch();
-      setSearchKeyword('');
-    }
-  };
-
-  const removeEventsSearch = () => {
-    document.removeEventListener('click', handleDocumentClickSearch, true);
-  };
-
-  const addEventsSearch = () => {
-    document.addEventListener('click', handleDocumentClickSearch, true);
-  };
-
-  const handleSearchInputKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      search();
-    }
-  };
-
-  const toggleFullScreen = () => {
-    const isFS = isInFullScreenFn();
-
-    const docElm = document.documentElement;
-    if (!isFS) {
-      if (docElm.requestFullscreen) {
-        docElm.requestFullscreen();
-      } else if (docElm.mozRequestFullScreen) {
-        docElm.mozRequestFullScreen();
-      } else if (docElm.webkitRequestFullScreen) {
-        docElm.webkitRequestFullScreen();
-      } else if (docElm.msRequestFullscreen) {
-        docElm.msRequestFullscreen();
-      }
-    } else if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
-    setIsInFullScreen(!isFS);
   };
 
   const handleLogout = () => {
@@ -202,7 +85,13 @@ const TopNav = ({
     clickOnMobileMenuAction(_containerClassnames);
   };
 
-  const { messages } = intl;
+  const handleChangeToAccount = () => {
+    if (pathFixed === 'medico') {
+      navigate.push('/app/medico/cuenta');
+    } else {
+      navigate.push('/app/admin/cuenta');
+    }
+  };
   return (
     <nav className="navbar fixed-top">
       <div className="d-flex align-items-center navbar-left">
@@ -224,23 +113,6 @@ const TopNav = ({
         >
           <MobileMenuIcon />
         </NavLink>
-
-        <div className="search">
-          <Input
-            name="searchKeyword"
-            id="searchKeyword"
-            placeholder={messages['menu.search']}
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-            onKeyPress={(e) => handleSearchInputKeyPress(e)}
-          />
-          <span
-            className="search-icon"
-            onClick={(e) => handleSearchIconClick(e)}
-          >
-            <i className="simple-icon-magnifier" />
-          </span>
-        </div>
 
         <div className="d-inline-block">
           <UncontrolledDropdown className="ml-2">
@@ -267,28 +139,14 @@ const TopNav = ({
           </UncontrolledDropdown>
         </div>
       </div>
-      <NavLink className="navbar-logo" to={adminRoot}>
-        <span className="logo d-none d-xs-block" />
-        <span className="logo-mobile d-block d-xs-none" />
+      <NavLink to={adminRoot}>
+        <img src={evodentalLogo} alt="" width="120px" />
       </NavLink>
 
       <div className="navbar-right">
         {isDarkSwitchActive && <TopnavDarkSwitch />}
         <div className="header-icons d-inline-block align-middle">
-          <TopnavEasyAccess />
           <TopnavNotifications />
-          <button
-            className="header-icon btn btn-empty d-none d-sm-inline-block"
-            type="button"
-            id="fullScreenButton"
-            onClick={toggleFullScreen}
-          >
-            {isInFullScreen ? (
-              <i className="simple-icon-size-actual d-block" />
-            ) : (
-              <i className="simple-icon-size-fullscreen d-block" />
-            )}
-          </button>
         </div>
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
@@ -308,8 +166,16 @@ const TopNav = ({
               </span>
             </DropdownToggle>
             <DropdownMenu className="mt-3" right>
-              <DropdownItem>Cuenta</DropdownItem>
-              <DropdownItem>Soporte</DropdownItem>
+              <DropdownItem onClick={handleChangeToAccount}>
+                Cuenta
+              </DropdownItem>
+              {pathFixed !== 'medico' && (
+                <DropdownItem
+                  onClick={() => navigate.push('/app/soporte/centro-de-ayuda')}
+                >
+                  Soporte
+                </DropdownItem>
+              )}
               <DropdownItem divider />
               <DropdownItem onClick={() => handleLogout()}>Salir</DropdownItem>
             </DropdownMenu>

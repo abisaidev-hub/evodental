@@ -3,15 +3,15 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { Row } from 'reactstrap';
 import { adminRoot } from 'constants/defaultValues';
 import Pagination from './Pagination';
-import DataListView from './DataListView';
+import PacienteDataListView from './PacienteDataListView';
 import ImageListView from './ImageListView';
-import ThumbListView from './ThumbListView';
+import PacienteThumbListView from './PacienteThumbListView';
 
 function collect(props) {
   return { data: props.data };
 }
 
-const ListPageListing = ({
+const PacienteListPageListing = ({
   items,
   displayMode,
   currentPage,
@@ -52,7 +52,7 @@ const ListPageListing = ({
               className="d-block position-relative"
               style={{ width: '100%' }}
             >
-              <ThumbListView
+              <PacienteThumbListView
                 key={product.id}
                 product={product}
                 collect={collect}
@@ -69,7 +69,7 @@ const ListPageListing = ({
             style={{ width: '100%' }}
             key={product.id}
           >
-            <DataListView
+            <PacienteDataListView
               key={product.id}
               product={product}
               collect={collect}
@@ -86,4 +86,4 @@ const ListPageListing = ({
   );
 };
 
-export default React.memo(ListPageListing);
+export default React.memo(PacienteListPageListing);

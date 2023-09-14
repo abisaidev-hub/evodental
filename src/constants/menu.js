@@ -44,16 +44,6 @@ const data = [
         label: 'menu.doctores',
         to: `${adminRoot}/admin/doctores`,
       },
-      {
-        icon: 'simple-icon-paper-plane',
-        label: 'menu.lorem',
-        to: `${adminRoot}/admin/lorem`,
-      },
-      {
-        icon: 'simple-icon-paper-plane',
-        label: 'menu.ipsum',
-        to: `${adminRoot}/admin/ipsum`,
-      },
     ],
   },
   {
@@ -67,24 +57,7 @@ const data = [
         label: 'menu.centro-de-ayuda',
         to: `${adminRoot}/soporte/centro-de-ayuda`,
       },
-      {
-        icon: 'simple-icon-paper-plane',
-        label: 'menu.lorem',
-        to: `${adminRoot}/soporte/lorem`,
-      },
-      {
-        icon: 'simple-icon-paper-plane',
-        label: 'menu.ipsum',
-        to: `${adminRoot}/soporte/ipsum`,
-      },
     ],
-  },
-  {
-    id: 'docs',
-    icon: 'iconsminds-library',
-    label: 'menu.docs',
-    to: 'https://gogo-react-docs.coloredstrategies.com/',
-    newWindow: true,
   },
 ];
 export default data;
